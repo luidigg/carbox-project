@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luidi\\Desktop\\Programação - Pequenos Projetos\\CarboxProject2\\CarboxProject2.csproj": {}
+    "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\CarboxProject2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luidi\\Desktop\\Programação - Pequenos Projetos\\CarboxProject2\\CarboxProject2.csproj": {
+    "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\CarboxProject2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luidi\\Desktop\\Programação - Pequenos Projetos\\CarboxProject2\\CarboxProject2.csproj",
+        "projectUniqueName": "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\CarboxProject2.csproj",
         "projectName": "CarboxProject2",
-        "projectPath": "C:\\Users\\Luidi\\Desktop\\Programação - Pequenos Projetos\\CarboxProject2\\CarboxProject2.csproj",
+        "projectPath": "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\CarboxProject2.csproj",
         "packagesPath": "C:\\Users\\Luidi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luidi\\Desktop\\Programação - Pequenos Projetos\\CarboxProject2\\obj\\",
+        "outputPath": "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Luidi\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.31, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
