@@ -80,11 +80,14 @@ Console.ResetColor();
 
 string opcaoSelecionada = Console.ReadLine();
 
-if(opcaoSelecionada == null)
+
+if(opcaoSelecionada == "")
     {
     Console.BackgroundColor = ConsoleColor.Red;
-    Console.WriteLine("#ERRO 1#  -  Selecione uma opção numérica  //  ex.: '1'");
+    Console.WriteLine("#ERRO 1#  -  Você não selecionou nenhuma opção, selecione uma opção numérica da lista e dê 'enter' -  EX.: '1'");
     }
+Console.ResetColor();
+
 
 if(opcaoSelecionada == "1"){}
 
