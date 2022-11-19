@@ -1,5 +1,3 @@
-//teste inicial
-
 using MySql.Data.MySqlClient;
 
 namespace DAL
