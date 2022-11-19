@@ -30,7 +30,7 @@ namespace DAL
 // > depois partimos pras outras etapas...
 
 
-// abaixo segue o codigo simples da parte do menu principal do app, só um esboço, depois vamos adicionando as coisas. ___esse aqui é o app do usuário__
+//esse aqui é o app do usuário__
 // cada menu tem uma cor;
 
 
@@ -51,12 +51,33 @@ namespace DAL
 
 
 Console.ForegroundColor = ConsoleColor.Green;
-Console.WriteLine("CarboxAPP 1.0 - Darla Juchum e Luidi Giacomelli | Setrem 2022");
+Console.WriteLine("CarboxAPP 1.0 - Darla Juchum e Luidi Giacomelli & Ryan Gomes | Setrem 2022");
 Console.ResetColor();
 Console.WriteLine();
 Console.WriteLine();
 
-//tela de login aparece agora, após logado, aparece o menu abaixo:
+//tela de login abaixo
+
+Console.ForegroundColor = ConsoleColor.Yellow;
+
+Console.WriteLine("[a]  -  Criar conta");
+Console.WriteLine("[b]  -  Fazer login");
+
+char opcaoLogin = Console.ReadLine();
+
+if(opcaoLogin == "a")
+{
+
+}
+
+
+if(opcaoLogin == "b")
+{
+
+}
+
+
+//tela de login acima
 
 Console.ForegroundColor = ConsoleColor.Cyan;
 
@@ -69,10 +90,9 @@ Console.WriteLine("[1]  -  Oficinas Disponíveis");
 Console.WriteLine("[2]  -  Manutenções Agendadas");
 Console.WriteLine("[3]  -  Mapa de Oficinas | (Google Maps)");
 Console.WriteLine();
-Console.WriteLine("[4]  -  Chamada de Emergência");
 Console.WriteLine();
-Console.WriteLine("[5]  -  Meu Perfil");
-Console.WriteLine("[6]  -  Meus veículos");
+Console.WriteLine("[4]  -  Meu Perfil");
+Console.WriteLine("[5]  -  Meus veículos");
 Console.WriteLine();
 Console.ForegroundColor = ConsoleColor.Red;
 Console.WriteLine("[0]  -  Sair do Aplicativo");
