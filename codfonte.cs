@@ -1,35 +1,17 @@
+//APP DO USUÁRIO
+
 using MySql.Data.MySqlClient;
 
-namespace DAL
-{
-    public class DatabaseService
-    {
-        private MySqlConnection _connection;
-        public DatabaseService()
-        {
-            _connection = new MySqlConnection("server=localhost;port=3306;user=root;password=;database=classicmodels");
-            _connection.Open();
-        }
 
-        public MySqlDataReader Select(string sql)
-        {
-            MySqlCommand command = new MySqlCommand(sql, _connection);
-            return command.ExecuteReader();
-        }
-    }
+MySqlConnection objcon = new MySqlConnection("server=localhost;port=3306;user=root; database=test; password=;");
+    
+    objcon.Open();
 
-}
+MySqlCommand objCmd = new MySqlCommand("insert into clientes (CLIENTE_NOME, CLIENTE_NUMERO, CLIENTE_PLACA, DATA_NASCIMENTO) values ('Carlos Ribeiro', '(55) 123456789', 'YEP2030', '2010-08-12')",objcon);
+
+    objCmd.ExecuteNonQuery();
 
 //https://www.devmedia.com.br/como-criar-um-sistema-sistema-de-autenticacao-em-asp-net-e-csharp/31701
-
-// precisamos programar a:
-// > criação de conta por parte do usuário e das oficinas
-// > login de clientes cadastrados
-// > depois partimos pras outras etapas...
-
-
-//esse aqui é o app do usuário__
-// cada menu tem uma cor;
 
 
 //string nome = "Maurício";
