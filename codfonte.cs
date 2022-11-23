@@ -43,10 +43,50 @@ Console.ForegroundColor = ConsoleColor.Yellow;
 Console.WriteLine("[a]  -  Criar conta");
 Console.WriteLine("[b]  -  Fazer login");
 
-char opcaoLogin = Console.ReadLine();
+string opcaoLogin = Console.ReadLine();
 
 if(opcaoLogin == "a")
 {
+
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.White;
+
+    Console.WriteLine("Insira o seu nome");
+    string nomeCliente = Console.ReadLine();
+
+    Console.WriteLine("Insira seu número de celular");
+    string telefoneCliente = Console.ReadLine();
+
+    Console.WriteLine("Insira a placa do seu veículo");
+    string placaCliente = Console.ReadLine();
+
+    Console.WriteLine("Insira sua data de nascimento");
+    string nascimentoCliente = Console.ReadLine();
+
+    Console.Clear(); /////////
+
+
+    Console.WriteLine("Insira seu nome de usuário");
+    string usernameCliente = Console.ReadLine();
+
+    Console.WriteLine("Insira sua senha");
+    string senhaClienteA = Console.ReadLine();
+    Console.Write
+
+    //nome
+    //numero
+    //placa
+    //nascimento
+    //username
+    //senha
+    //cpf
+
+
+
+
+
+
+
 
 }
 
