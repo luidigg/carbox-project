@@ -38,48 +38,114 @@ Console.WriteLine();
 
 //tela de login abaixo
 
-Console.ForegroundColor = ConsoleColor.Yellow;
+while(true){
 
-Console.WriteLine("[a]  -  Criar conta");
-Console.WriteLine("[b]  -  Fazer login");
+    Console.ForegroundColor = ConsoleColor.Yellow;
 
-string opcaoLogin = Console.ReadLine();
+    Console.WriteLine("[a]  -  Criar conta");
+    Console.WriteLine("[b]  -  Fazer login");
 
-if(opcaoLogin == "a")
-{
+    string opcaoLogin = Console.ReadLine();
 
-    Console.Clear();
-    Console.ForegroundColor = ConsoleColor.White;
+    if(opcaoLogin == "")
+    {
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine("Nenhuma opção foi selecionada, digite 'a' ou 'b' e tecle Enter");
+        Thread.Sleep(3500);
+        Console.Beep(500,700);
+        break;
+    }
 
-    Console.WriteLine("Insira o seu nome");
-    string nomeCliente = Console.ReadLine();
+    if(opcaoLogin == "a")
+    {
 
-    Console.WriteLine("Insira seu número de celular");
-    string telefoneCliente = Console.ReadLine();
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.White;
 
-    Console.WriteLine("Insira a placa do seu veículo");
-    string placaCliente = Console.ReadLine();
+        Console.WriteLine("Insira o seu nome completo");
+        string nomeCliente = Console.ReadLine();
+        if(nomeCliente.Length < 8)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("O nome inserido não está completo ou é muito curto, tente novamente.");
+            Thread.Sleep(3500);
+            break;
+        }
 
-    Console.WriteLine("Insira sua data de nascimento");
-    string nascimentoCliente = Console.ReadLine();
+        Console.WriteLine("Insira seu número de telefone");
+        string telefoneCliente = Console.ReadLine();
+        
+        if(telefoneCliente.Length < 8)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Digite um número de telefone válido");
+            Thread.Sleep(3500);
+            break;
+        }
 
-    Console.Clear(); /////////
+        Console.WriteLine("Insira a placa do seu veículo  || EXEMPLO > ' BRA2E19");
+        string placaCliente = Console.ReadLine();
+
+        Console.WriteLine("Insira sua data de nascimento || EXEMPLO > ' dd/mm/aaaa '.");
+        string nascimentoInformado = Console.ReadLine();
+        DateTime nascimentoCLiente = Convert.ToDateTime(nascimentoInformado);
+        DateTime anoAtual = DateTime.Now;
+
+        TimeSpan verificaMaioridade = anoAtual - nascimentoCLiente;
+
+        string idade1 = verificaMaioridade.ToString("dd");
+        int idade2 = Convert.ToInt32(idade1);
+
+        if(idade2 < 5840)
+        {
+            Console.WriteLine("Você possui menos de 18 anos, utilize o APP com cautela");
+            continue;
+        }
+
+        else if (idade2 < 6570)
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine("Você possui menos de 16 anos, chame um responsável para se cadastrar no aplicativo");
+            Thread.Sleep(2000);
+            Console.Beep(2000,600);
+            Console.Beep(2000,600);
+            break;
+        }
 
 
-    Console.WriteLine("Insira seu nome de usuário");
-    string usernameCliente = Console.ReadLine();
+        Console.WriteLine("Insira seu CPF"); //implementar sistema de validação do CPF aqui
+        string cpfCLiente = Console.ReadLine();
 
-    Console.WriteLine("Insira sua senha");
-    string senhaClienteA = Console.ReadLine();
-    Console.Write
 
-    //nome
-    //numero
-    //placa
-    //nascimento
-    //username
-    //senha
-    //cpf
+
+
+
+        Console.Clear();
+
+        Console.WriteLine("Insira seu nome de usuário");
+        string usernameCliente = Console.ReadLine();
+
+        Console.WriteLine("Insira sua senha");
+        string senhaClienteA = Console.ReadLine();
+        Console.WriteLine("Confirme sua senha");
+        string senhaCLienteB = Console.ReadLine();
+
+        if(senhaClienteA == senhaCLienteB)
+        {
+
+            //executar comando insert da lista de campos inteira no mysql
+
+        }
+
+        }
+
+        //nome
+        //numero
+        //placa
+        //nascimento
+        //username
+        //senha
+        //cpf
 
 
 
@@ -145,4 +211,3 @@ if(opcaoSelecionada == "0")
 {
     break;
 }
-
