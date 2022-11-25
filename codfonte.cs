@@ -41,12 +41,11 @@ Console.WriteLine();
 
 RETORNO1:
 
-Console.ForegroundColor = ConsoleColor.Yellow; //verificar com professor.
+Console.ForegroundColor = ConsoleColor.Cyan; //verificar com professor.
 
 Console.WriteLine("[a]  -  Criar conta");
 Console.WriteLine("[b]  -  Fazer login");
 string opcaoLogin = Console.ReadLine();
-
 
 
 
@@ -92,10 +91,10 @@ if (opcaoLogin == "a")
 
     Console.WriteLine("Insira sua data de nascimento || EXEMPLO > ' dd/mm/aaaa '.");
     string nascimentoInformado = Console.ReadLine();
-    DateTime nascimentoCLiente = Convert.ToDateTime(nascimentoInformado);
+    DateTime nascimentoCliente = Convert.ToDateTime(nascimentoInformado);
     DateTime anoAtual = DateTime.Now;
 
-    TimeSpan verificaMaioridade = anoAtual - nascimentoCLiente;
+    TimeSpan verificaMaioridade = anoAtual - nascimentoCliente;
 
     string idade1 = verificaMaioridade.ToString("dd");
     int idade2 = Convert.ToInt32(idade1);
@@ -103,7 +102,6 @@ if (opcaoLogin == "a")
     if (idade2 < 5840)
     {
         Console.WriteLine("Você possui menos de 18 anos, utilize o APP com cautela");
-        continue;
     }
 
     else if (idade2 < 6570)
@@ -166,20 +164,61 @@ if (opcaoLogin == "a")
         RETORNO4:
         Console.WriteLine("Insira sua senha");
         string senhaClienteA = Console.ReadLine();
+        Console.WriteLine("");
 
         Console.WriteLine("Confirme sua senha");
-        string senhaCLienteB = Console.ReadLine();
+        string senhaClienteB = Console.ReadLine();
+        Console.WriteLine("");
 
-        if (senhaClienteA != senhaCLienteB)
+        if (senhaClienteA != senhaClienteB)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("As senhas devem ser iguais.");
             goto RETORNO4;
         }
 
-        if (senhaClienteA == senhaCLienteB)
+        if (senhaClienteA == senhaClienteB)
         {
-            //insert no banco
+            RETORNOcreate:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("[0]  -  Cancelar");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("[1]  -  Confirmar Conta");
+            
+            string confirm = Console.ReadLine();
+            int confirmaConta = Convert.ToInt16(confirm);
+
+            
+            if(confirmaConta == 0)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Cancelando criação de conta...");
+                Thread.Sleep(1500);
+                Console.Beep(200, 500);
+                Console.Beep(200, 500);
+
+                Console.Clear();
+                Console.ResetColor();
+                goto RETORNO1;
+            }
+
+            if(confirmaConta == 1)
+            {
+                MySqlCommand createAccount = new MySqlCommand("insert into clientes (CLIENTE_NOME, CLIENTE_NUMERO, CLIENTE_PLACA, DATA_NASCIMENTO, USERNAME_CLIENTE, USERSENHA_CLIENTE, CPF_CLIENTE) values (nomeCliente, telefoneCliente, placaCliente, nascimentoCliente, usernameCliente, senhaClienteB, cpfCliente)", objcon);
+                objCmd.ExecuteNonQuery();
+                Console.Clear();
+                break;
+            }
+
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Nenhuma opção foi selecionada, digite '0' ou '1' e tecle Enter");
+                goto RETORNOcreate;
+            }
         }
 
     }
@@ -196,16 +235,19 @@ if (opcaoLogin == "b")
 
 //tela de login acima
 
-Console.ForegroundColor = ConsoleColor.Cyan;
+Console.ResetColor();
+Console.ForegroundColor = ConsoleColor.Green;
 
-Console.WriteLine("Menu Pricipal");
+Console.WriteLine("___________________Menu Pricipal______________________");
 Console.WriteLine();
 Console.WriteLine("__________ Escolha uma das opções listadas: __________");
+Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine();
 Console.WriteLine();
 Console.WriteLine("[1]  -  Oficinas Disponíveis");
 Console.WriteLine("[2]  -  Manutenções Agendadas");
 Console.WriteLine("[3]  -  Mapa de Oficinas | (Google Maps)");
+Console.ForegroundColor = ConsoleColor.Yellow;
 Console.WriteLine();
 Console.WriteLine();
 Console.WriteLine("[4]  -  Meu Perfil");
