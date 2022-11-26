@@ -8,10 +8,6 @@ MySqlConnection objcon = new MySqlConnection("server=localhost;port=3306;user=ro
 
 objcon.Open();
 
-MySqlCommand objCmd = new MySqlCommand("insert into clientes (CLIENTE_NOME, CLIENTE_NUMERO, CLIENTE_PLACA, DATA_NASCIMENTO) values ('Carlos Ribeiro', '(55) 123456789', 'YEP2030', '2010-08-12')", objcon);
-
-objCmd.ExecuteNonQuery();
-
 //https://www.devmedia.com.br/como-criar-um-sistema-sistema-de-autenticacao-em-asp-net-e-csharp/31701
 
 
@@ -30,25 +26,33 @@ objCmd.ExecuteNonQuery();
 //Console.ResetColor();
 //Console.WriteLine("Tudo bem com vocês?!");
 
-
+RETORNO1:
+Console.Clear();
 Console.ForegroundColor = ConsoleColor.Green;
-Console.WriteLine("CarboxAPP 1.0 - Darla Juchum e Luidi Giacomelli & Ryan Gomes | Setrem 2022");
+Console.WriteLine("CarboxAPP 1.0 - Darla Juchum, Luidi Giacomelli & Ryan Gomes | Setrem 2022");
 Console.ResetColor();
 Console.WriteLine();
 Console.WriteLine();
 
-//tela de login abaixo
 
-RETORNO1:
+//tela de login abaixo
 
 Console.ForegroundColor = ConsoleColor.Cyan; //verificar com professor.
 
 Console.WriteLine("[a]  -  Criar conta");
 Console.WriteLine("[b]  -  Fazer login");
+Console.WriteLine("");
+Console.ForegroundColor = ConsoleColor.DarkCyan;
+Console.WriteLine("[x]  -  Sair");
+Console.ResetColor();
+
 string opcaoLogin = Console.ReadLine();
 
 
-
+if(opcaoLogin == "x")
+{
+    return;
+}
 
 if (opcaoLogin == "")
 {
@@ -61,20 +65,24 @@ if (opcaoLogin == "")
 
 if (opcaoLogin == "a")
 {
-
+    RETORNO2:
+    Console.ResetColor();
     Console.Clear();
     Console.ForegroundColor = ConsoleColor.White;
 
+    Console.WriteLine("");
     Console.WriteLine("Insira o seu nome completo");
     string nomeCliente = Console.ReadLine();
     if (nomeCliente.Length < 8)
     {
         Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine("O nome inserido não está completo ou é muito curto, tente novamente.");
+        Console.WriteLine("O nome inserido está incompleto ou é muito curto, tente novamente.");
         Thread.Sleep(3500);
-        goto RETORNO1;
+        goto RETORNO2;
     }
 
+    RETORNO3:
+    Console.WriteLine("");
     Console.WriteLine("Insira seu número de telefone");
     string telefoneCliente = Console.ReadLine();
 
@@ -83,12 +91,14 @@ if (opcaoLogin == "a")
         Console.ForegroundColor = ConsoleColor.DarkRed;
         Console.WriteLine("Digite um número de telefone válido");
         Thread.Sleep(3500);
-        goto RETORNO1;
+        goto RETORNO3;
     }
 
-    Console.WriteLine("Insira a placa do seu veículo  || EXEMPLO > ' BRA2E19");
+    Console.WriteLine("");
+    Console.WriteLine("Insira a placa do seu veículo  || EXEMPLO > ' BRA2E19 '");
     string placaCliente = Console.ReadLine();
 
+    Console.WriteLine("");
     Console.WriteLine("Insira sua data de nascimento || EXEMPLO > ' dd/mm/aaaa '.");
     string nascimentoInformado = Console.ReadLine();
     DateTime nascimentoCliente = Convert.ToDateTime(nascimentoInformado);
@@ -106,42 +116,47 @@ if (opcaoLogin == "a")
 
     else if (idade2 < 6570)
     {
-        Console.BackgroundColor = ConsoleColor.Red;
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Você possui menos de 16 anos, chame um responsável para se cadastrar no aplicativo");
         Thread.Sleep(2000);
         Console.Beep(2000, 600);
         Console.Beep(2000, 600);
+        Console.ResetColor();
         goto RETORNO1;
     }
 
 
-    RETORNO2:
+
     while (true)
     {
+        RETORNO4:
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("");
         Console.WriteLine("Insira seu CPF"); //implementar sistema de validação do CPF aqui
-        string cpfCLiente = Console.ReadLine();
+        string cpfCliente = Console.ReadLine();
 
-        if (cpfCLiente == "")
+        if (cpfCliente == "")
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Insira um CPF válido");
-            goto RETORNO2;
+            goto RETORNO4;
         }
 
-        else if (cpfCLiente.Length < 11)
+        else if (cpfCliente.Length < 11)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("CPF muito curto, insira um CPF válido");
-            goto RETORNO2;
+            goto RETORNO4;
         }
 
-        bool IsValid = CpfValidation.Validate(cpfCLiente);
+        bool IsValid = CpfValidation.Validate(cpfCliente);
 
         if (IsValid == false)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Insira um CPF válido");
-            goto RETORNO2;
+            goto RETORNO4;
         }
 
         else
@@ -150,7 +165,7 @@ if (opcaoLogin == "a")
             Console.ResetColor();
         }
 
-        RETORNO3:
+        RETORNO5:
         Console.WriteLine("Insira seu nome de usuário");
         string usernameCliente = Console.ReadLine();
 
@@ -158,10 +173,13 @@ if (opcaoLogin == "a")
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("# Insira um nome de usuário com menos de 15 caracteres #");
-            goto RETORNO3;
+            Console.WriteLine("");
+            goto RETORNO5;
         }
 
-        RETORNO4:
+        RETORNO6:
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("Insira sua senha");
         string senhaClienteA = Console.ReadLine();
         Console.WriteLine("");
@@ -169,12 +187,14 @@ if (opcaoLogin == "a")
         Console.WriteLine("Confirme sua senha");
         string senhaClienteB = Console.ReadLine();
         Console.WriteLine("");
+        Console.WriteLine("");
 
         if (senhaClienteA != senhaClienteB)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("As senhas devem ser iguais.");
-            goto RETORNO4;
+            Console.WriteLine("");
+            goto RETORNO6;
         }
 
         if (senhaClienteA == senhaClienteB)
@@ -182,10 +202,17 @@ if (opcaoLogin == "a")
             RETORNOcreate:
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
             Console.WriteLine("[0]  -  Cancelar");
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("[1]  -  Confirmar Conta");
+            Console.WriteLine("");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
             
             string confirm = Console.ReadLine();
             int confirmaConta = Convert.ToInt16(confirm);
@@ -207,7 +234,7 @@ if (opcaoLogin == "a")
 
             if(confirmaConta == 1)
             {
-                MySqlCommand createAccount = new MySqlCommand("insert into clientes (CLIENTE_NOME, CLIENTE_NUMERO, CLIENTE_PLACA, DATA_NASCIMENTO, USERNAME_CLIENTE, USERSENHA_CLIENTE, CPF_CLIENTE) values (nomeCliente, telefoneCliente, placaCliente, nascimentoCliente, usernameCliente, senhaClienteB, cpfCliente)", objcon);
+                MySqlCommand objCmd = new MySqlCommand("insert into clientes (CLIENTE_NOME, CLIENTE_NUMERO, CLIENTE_PLACA, DATA_NASCIMENTO, USERNAME_CLIENTE, USERSENHA_CLIENTE, CPF_CLIENTE) values (nomeCliente, telefoneCliente, placaCliente, nascimentoCliente, usernameCliente, senhaClienteB, cpfCliente)", objcon);
                 objCmd.ExecuteNonQuery();
                 Console.Clear();
                 break;
@@ -229,7 +256,7 @@ if (opcaoLogin == "a")
 
 if (opcaoLogin == "b")
 {
-
+    //inserir criação de contas
 }
 
 
@@ -282,5 +309,5 @@ if (opcaoSelecionada == "6") { }
 
 if (opcaoSelecionada == "0")
 {
-    break;
+    //break;
 }
