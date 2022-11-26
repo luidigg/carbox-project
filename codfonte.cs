@@ -59,7 +59,7 @@ if (opcaoLogin == "")
     Console.ForegroundColor = ConsoleColor.DarkRed;
     Console.WriteLine("Nenhuma opção foi selecionada, digite 'a' ou 'b' e tecle Enter");
     Thread.Sleep(3500);
-    Console.Beep(500, 700);
+    Console.Beep(600, 700);
     goto RETORNO1;
 }
 
@@ -217,15 +217,15 @@ if (opcaoLogin == "a")
             string confirm = Console.ReadLine();
             int confirmaConta = Convert.ToInt16(confirm);
 
-            
+
             if(confirmaConta == 0)
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Cancelando criação de conta...");
                 Thread.Sleep(1500);
-                Console.Beep(200, 500);
-                Console.Beep(200, 500);
+                Console.Beep(1500, 500);
+                Console.Beep(1500, 500);
 
                 Console.Clear();
                 Console.ResetColor();
@@ -234,10 +234,22 @@ if (opcaoLogin == "a")
 
             if(confirmaConta == 1)
             {
-                MySqlCommand objCmd = new MySqlCommand("insert into clientes (CLIENTE_NOME, CLIENTE_NUMERO, CLIENTE_PLACA, DATA_NASCIMENTO, USERNAME_CLIENTE, USERSENHA_CLIENTE, CPF_CLIENTE) values (nomeCliente, telefoneCliente, placaCliente, nascimentoCliente, usernameCliente, senhaClienteB, cpfCliente)", objcon);
+                MySqlCommand objCmd = new MySqlCommand("insert into clientes (CLIENTE_NOME, CLIENTE_NUMERO, DATA_NASCIMENTO, USERNAME_CLIENTE, USERSENHA_CLIENTE, CPF_CLIENTE) values (?, ?, ?, ?, ?, ?)", objcon);
+                
+                //parametros
+                objCmd.Parameters.Add("@CLIENTE_NOME", MySqlDbType.VarChar, 100).Value = nomeCliente;
+                objCmd.Parameters.Add("@CLIENTE_NUMERO", MySqlDbType.VarChar, 85).Value = telefoneCliente;
+                objCmd.Parameters.Add("@DATA_NASCIMENTO", MySqlDbType.Date).Value = nascimentoCliente;
+                objCmd.Parameters.Add("@USERNAME_CLIENTE", MySqlDbType.VarChar, 100).Value = usernameCliente;
+                objCmd.Parameters.Add("@USERSENHA_CLIENTE", MySqlDbType.VarChar, 100).Value = senhaClienteB;
+                objCmd.Parameters.Add("@CPF_CLIENTE", MySqlDbType.VarChar, 45).Value = cpfCliente;
+                
+                //executa o insert no banco
                 objCmd.ExecuteNonQuery();
                 Console.Clear();
-                break;
+                Console.WriteLine("");
+                Console.WriteLine("Conta cadastrada com sucesso!");
+                
             }
 
             else
