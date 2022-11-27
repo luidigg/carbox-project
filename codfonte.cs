@@ -4,7 +4,7 @@ using DocumentValidator;
 using MySql.Data.MySqlClient;
 
 
-MySqlConnection objcon = new MySqlConnection("server=localhost;port=3306;user=root; database=test; password=;");
+MySqlConnection objcon = new MySqlConnection("server=localhost;port=3306;user=root; database=mydb; password=;");
 
 objcon.Open();
 
@@ -107,14 +107,14 @@ if (opcaoLogin == "a")
     TimeSpan verificaMaioridade = anoAtual - nascimentoCliente;
 
     string idade1 = verificaMaioridade.ToString("dd");
-    int idade2 = Convert.ToInt32(idade1);
+    uint idade2 = Convert.ToUInt32(idade1);
 
-    if (idade2 < 5840)
+    if (idade2 < 6570 && idade2 >= 5840)
     {
         Console.WriteLine("Você possui menos de 18 anos, utilize o APP com cautela");
     }
 
-    else if (idade2 < 6570)
+    else if (idade2 < 5840)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Você possui menos de 16 anos, chame um responsável para se cadastrar no aplicativo");
@@ -249,6 +249,7 @@ if (opcaoLogin == "a")
                 Console.Clear();
                 Console.WriteLine("");
                 Console.WriteLine("Conta cadastrada com sucesso!");
+                break;
                 
             }
 
@@ -266,9 +267,43 @@ if (opcaoLogin == "a")
 
 
 
-if (opcaoLogin == "b")
+if (opcaoLogin == "b") //código aqui dando bug, corrigir isso ou partir pra construção dos menus
 {
-    //inserir criação de contas
+    Console.ResetColor();
+    Console.ForegroundColor = ConsoleColor.Yellow;
+
+    Console.WriteLine("");
+    Console.WriteLine("Digite seu nome de usuário");
+    string userInf = Console.ReadLine();
+
+    Console.WriteLine("");
+    Console.WriteLine("Digite sua senha:");
+    string senhaInf = Console.ReadLine();
+    
+    
+    MySqlCommand objCmd = new MySqlCommand("select count (*) from clientes where USERNAME_CLIENTE = ? and USERSENHA_CLIENTE = ?", objcon);
+
+    objCmd.Parameters.Add("@USERNAME_CLIENTE", MySqlDbType.VarChar, 100).Value = userInf;
+    objCmd.Parameters.Add("@USERSENHA_CLIENTE", MySqlDbType.VarChar, 100).Value = userInf;
+    
+    
+    int rows = Convert.ToInt32(objCmd.ExecuteScalar());
+
+    if(rows > 0)
+    {
+        Console.WriteLine(rows);
+    }
+
+    else
+    {
+        Console.WriteLine("ahh nao");
+    }
+    
+
+
+
+
+
 }
 
 
