@@ -8,23 +8,6 @@ MySqlConnection objcon = new MySqlConnection("server=192.168.0.125;port=3306;use
 
 objcon.Open();
 
-//https://www.devmedia.com.br/como-criar-um-sistema-sistema-de-autenticacao-em-asp-net-e-csharp/31701
-
-
-//string nome = "Maurício";
-//string sobrenome = "Schiavo";
-
-//Console.Write("Nome".PadRight(30, '.'));
-//Console.WriteLine(nome.PadLeft(20));
-
-//Console.Write("Sobrenome".PadRight(30, '.'));
-//Console.WriteLine(sobrenome.PadLeft(20));
-
-//Console.BackgroundColor = ConsoleColor.Blue;
-//Console.ForegroundColor = ConsoleColor.Black;
-//Console.WriteLine("Oi galera!");
-//Console.ResetColor();
-//Console.WriteLine("Tudo bem com vocês?!");
 
 RETORNO1:
 Console.Clear();
