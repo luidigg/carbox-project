@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\luidi\\Desktop\\Programação - Pequenos Projetos\\carbox-project\\CarboxProject2.csproj": {}
+    "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\CarboxProject2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\luidi\\Desktop\\Programação - Pequenos Projetos\\carbox-project\\CarboxProject2.csproj": {
+    "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\CarboxProject2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\luidi\\Desktop\\Programação - Pequenos Projetos\\carbox-project\\CarboxProject2.csproj",
+        "projectUniqueName": "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\CarboxProject2.csproj",
         "projectName": "CarboxProject2",
-        "projectPath": "C:\\Users\\luidi\\Desktop\\Programação - Pequenos Projetos\\carbox-project\\CarboxProject2.csproj",
-        "packagesPath": "C:\\Users\\luidi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\luidi\\Desktop\\Programação - Pequenos Projetos\\carbox-project\\obj\\",
+        "projectPath": "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\CarboxProject2.csproj",
+        "packagesPath": "C:\\Users\\Luidi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Luidi\\Desktop\\Programação - Projetos\\carbox-project\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\luidi\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Luidi\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"

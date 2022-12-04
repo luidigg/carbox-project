@@ -4,7 +4,7 @@ using DocumentValidator;
 using MySql.Data.MySqlClient;
 
 
-MySqlConnection objcon = new MySqlConnection("server=localhost;port=3306;user=root; database=mydb; password=;");
+MySqlConnection objcon = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
 
 objcon.Open();
 
@@ -304,7 +304,6 @@ RETORNOlog:
 
     var reader = login1.ExecuteReader();
 
-
     if (reader.HasRows)
     {
         //continua para o menu
@@ -316,9 +315,12 @@ RETORNOlog:
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("");
         Console.WriteLine("Senha ou usuário incorreto");
-        Console.Beep(1300, 400);
-        Console.Beep(1300, 400);
+        Console.WriteLine("");
+        Console.WriteLine("");
+        Console.WriteLine("");
+        Console.Beep(300, 500);
         Console.ResetColor();
+        reader.Close();
         goto RETORNOlog;
     }
 
@@ -341,6 +343,7 @@ while (true)
 {
 RETORNOmenu:
 
+    Console.Clear();
     Console.WriteLine("");
     Console.WriteLine("");
     Console.ResetColor();
@@ -381,7 +384,7 @@ RETORNOmenu:
 
     if (opcaoSelecionada == "1")
     {
-        MySqlConnection oficinaList = new MySqlConnection("server=localhost;port=3306;user=root; database=mydb; password=;");
+        MySqlConnection oficinaList = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
         oficinaList.Open();
 
         MySqlCommand option1 = new MySqlCommand("select OFICINA_NOME, OFICINA_NUMERO, OFICINA_LOCALIZACAO from oficinas;", oficinaList);
@@ -401,7 +404,7 @@ RETORNOmenu:
         Console.WriteLine("");
 
         Console.Write("       OFICINA".PadRight(45));
-        Console.Write("TELEFONE".PadRight(45));
+        Console.Write("TELEFONE".PadRight(40));
         Console.Write("LINK DE LOCALIZAÇÃO (Google Maps)".PadRight(40));
 
         while (reader1.Read())
@@ -463,15 +466,23 @@ RETORNOmenu:
         Console.ResetColor();
         Console.ForegroundColor = ConsoleColor.DarkGreen;
 
-        Console.WriteLine("1 > O carro não dá partida");
+        Console.WriteLine("1  >  O carro não dá partida");
     }
 
-    if (opcaoSelecionada == "4") { }
+    if (opcaoSelecionada == "4")
+    {
+
+
+
+    }
+
+
 
     if (opcaoSelecionada == "5")
     {
     RETORNOveiculo:
         Console.ResetColor();
+        Console.Clear();
         Console.WriteLine("");
         Console.WriteLine("");
         Console.ForegroundColor = ConsoleColor.Blue;
@@ -480,10 +491,13 @@ RETORNOmenu:
         Console.WriteLine("(2) - Exibir meus veículos");
         Console.WriteLine("");
         Console.WriteLine("(0) - Voltar ao menu");
+        Console.WriteLine("");
+        Console.WriteLine("");
+        Console.WriteLine("");
 
         string opcaoVeiculo = Console.ReadLine();
 
-        if (opcaoVeiculo != "1" || opcaoVeiculo != "2" || opcaoVeiculo != "0")
+        if (opcaoVeiculo != "1" && opcaoVeiculo != "2" && opcaoVeiculo != "0")
         {
             Console.ResetColor();
             Console.WriteLine("");
@@ -495,57 +509,229 @@ RETORNOmenu:
 
         if (opcaoVeiculo == "1") //cadastrar veiculo
         {
-            MySqlConnection cadastroVeiculo = new MySqlConnection("server=localhost;port=3306;user=root; database=mydb; password=;");
-            cadastroVeiculo.Open();
+        RETORNOcadveiculo:
+            MySqlConnection verificaCliente = new MySqlConnection("server=192.168.0.125; port=3306; user=PC2; database=mydb; password=darla;");
+            verificaCliente.Open();
 
             Console.ResetColor();
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("");
             Console.WriteLine("");
 
 
 
-            Console.WriteLine("Por favor, insira seu nome de usuário"); //validar no banco se o nome está correto, depois puxar o ID do cliente pra inserir o carro
-            string username1 = Console.ReadLine();
+            Console.WriteLine("Por favor, insira sua senha novamente"); //validar no banco se a senha está correta, depois puxar o ID do cliente pra inserir o carro
+            string usersenha1 = Console.ReadLine();
+
+            MySqlCommand verify = new MySqlCommand("select CLIENTE_ID from clientes where USERSENHA_CLIENTE = '" + usersenha1 + "';", verificaCliente);
+            verify.ExecuteNonQuery();
+
+            MySqlDataReader verificaID;
+            verificaID = verify.ExecuteReader();
+            verificaID.Read();
+            string verificaID2 = verificaID.GetString(0);
+
+            if (verificaID.HasRows)
+            {
+                verificaCliente.Close();
+                Console.Clear();
+            }
+
+            else
+            {
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("");
+                Console.WriteLine("Usuário não encontrado. Verifique sua senha e tente novamente.");
+                Thread.Sleep(800);
+                Console.Beep(900, 600);
+                Console.ResetColor();
+                goto RETORNOcadveiculo;
+            }
 
 
+            MySqlConnection cadastroVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
+            cadastroVeiculo.Open();
+
+            Int32 verificaID3 = Convert.ToInt32(verificaID2);
 
             Console.WriteLine("");
             Console.WriteLine("Insira o modelo do seu veículo");
-            string modeloCarro = Console.ReadLine();
+            string modeloCarro = Console.ReadLine(); //INSERIR VERIFICAÇÃO DO RANGE DO NOME INFORMADO
+
+            if (modeloCarro.Length < 7)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Insira o nome completo do modelo de seu carro");
+                goto RETORNOcadveiculo;
+            }
 
             Console.WriteLine("");
             Console.WriteLine("Insira a placa do seu veículo  || EXEMPLO > ' BRA2E19 '");
             string placaCliente = Console.ReadLine();
 
+            if (placaCliente.Length < 5)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Insira uma placa válida");
+                goto RETORNOcadveiculo;
+            }
 
-            MySqlCommand cadVeiculo = new MySqlCommand("insert into carro_cliente (CARRO_MODELO, CARRO_PLACA, CLIENTE_ID)) values (?, ?, ?)", objcon);
+            Console.ResetColor();
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("[a] - Confirmar cadastro do veículo");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("[b] - Cancelar cadastro do veículo");
+            Console.WriteLine("");
+            Console.WriteLine("");
 
-            //parametros
-            cadVeiculo.Parameters.Add("@CARRO_MODELO", MySqlDbType.VarChar, 100).Value = modeloCarro;
-            cadVeiculo.Parameters.Add("@CARRO_PLACA", MySqlDbType.VarChar, 85).Value = placaCliente;
-            
-            cadVeiculo.Parameters.Add("@CLIENTE_ID", MySqlDbType.Int16).Value = ;
+            string AddVeiculo = Console.ReadLine();
 
+            if (AddVeiculo == "a")
+            {
 
+                MySqlCommand cadVeiculo = new MySqlCommand("insert into carro_cliente (CARRO_MODELO, CARRO_PLACA, CLIENTE_ID)) values (?, ?, ?)", cadastroVeiculo);
+
+                //parametros
+                cadVeiculo.Parameters.Add("@CARRO_MODELO", MySqlDbType.VarChar, 100).Value = modeloCarro;
+                cadVeiculo.Parameters.Add("@CARRO_PLACA", MySqlDbType.VarChar, 45).Value = placaCliente;
+                cadVeiculo.Parameters.Add("@CLIENTE_ID", MySqlDbType.Int32, 10).Value = verificaID3;
+
+                cadVeiculo.ExecuteNonQuery();
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("Veículo cadastrado com sucesso!");
+                Console.Beep(2000, 700);
+                Console.ResetColor();
+
+                cadastroVeiculo.Close();
+
+                Thread.Sleep(1300);
+                goto RETORNOveiculo;
+            }
+
+            if (AddVeiculo == "b")
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Cancelando cadastro do veículo...");
+                Thread.Sleep(1200);
+                Console.Beep(1500, 500);
+                Console.Beep(1500, 500);
+
+                Console.Clear();
+                Console.ResetColor();
+                goto RETORNOveiculo;
+            }
 
         }
 
-        if (opcaoVeiculo == "2")
+
+
+        if (opcaoVeiculo == "2") //exibir veiculos cadastrados
         {
+            MySqlConnection exibirVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
+            exibirVeiculo.Open();
+
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("Por favor, insira sua senha"); //validar no banco se a senha está correta, depois puxar o ID do cliente pra inserir o carro
+            string usersenha1 = Console.ReadLine();
+
+            MySqlCommand verify = new MySqlCommand("select CLIENTE_ID from clientes where USERSENHA_CLIENTE = '" + usersenha1 + "';", exibirVeiculo);
+            verify.ExecuteNonQuery();
+
+            MySqlDataReader readID;
+            readID = verify.ExecuteReader();
+            readID.Read();
+            string readIDS = readID.GetString(0);
+
+            if (readID.HasRows)
+            {
+                //continua
+            }
+
+            else
+            {
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("");
+                Console.WriteLine("Usuário não encontrado. Verifique sua senha e tente novamente.");
+                Thread.Sleep(800);
+                Console.Beep(900, 600);
+                Console.ResetColor();
+                goto RETORNOveiculo;
+            }
+
+            exibirVeiculo.Close();
+
+            MySqlConnection mostraVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
+            mostraVeiculo.Open();
+
+            MySqlCommand showVeiculo = new MySqlCommand("select CARRO_MODELO, CARRO_PLACA from carro_cliente where CLIENTE_ID = '" + readIDS + "';", mostraVeiculo);
+            showVeiculo.ExecuteNonQuery();
+
+
+            MySqlDataReader readVeiculo;
+            readVeiculo = showVeiculo.ExecuteReader();
+
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            //cabeçalho da tabela
+            Console.Write("       VEÍCULO".PadRight(45));
+            Console.Write("PLACA");
+
+            while (readVeiculo.Read())
+            {
+
+                string READv1 = readVeiculo.GetString(0);
+                string READv2 = readVeiculo.GetString(1);
+
+                Console.WriteLine("");
+
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+                Console.Write(">    ");
+                Console.Write(READv1.PadRight(40, '.'));
+                Console.Write(READv2);
+                Console.Write(Environment.NewLine);
+            }
+
+            Console.ResetColor();
+            Console.WriteLine("");
+            Console.WriteLine("Pressione enter para continuar...");
+            Console.ReadLine();
+            Console.WriteLine("");
+
+            mostraVeiculo.Close();
+
 
         }
+
 
         if (opcaoVeiculo == "0")
         {
             goto RETORNOmenu;
         }
 
-
-
     }
 
+
     if (opcaoSelecionada == "6") { }
+
 
     if (opcaoSelecionada == "0")
     {
