@@ -74,7 +74,7 @@ if (opcaoLogin == "")
     goto RETORNO1;
 }
 
-if (opcaoLogin == "a")
+if (opcaoLogin == "a") //criar conta
 {
 RETORNO2:
     Console.ResetColor();
@@ -93,6 +93,7 @@ RETORNO2:
     }
 
 RETORNO3:
+    Console.ResetColor();
     Console.WriteLine("");
     Console.WriteLine("Insira seu número de telefone");
     string telefoneCliente = Console.ReadLine();
@@ -104,10 +105,6 @@ RETORNO3:
         Thread.Sleep(3500);
         goto RETORNO3;
     }
-
-    Console.WriteLine("");
-    Console.WriteLine("Insira a placa do seu veículo  || EXEMPLO > ' BRA2E19 '");
-    string placaCliente = Console.ReadLine();
 
     Console.WriteLine("");
     Console.WriteLine("Insira sua data de nascimento || EXEMPLO > ' dd/mm/aaaa '.");
@@ -122,12 +119,16 @@ RETORNO3:
 
     if (idade2 < 6570 && idade2 >= 5840)
     {
+        Console.WriteLine("");
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine("Você possui menos de 18 anos, utilize o APP com cautela");
+        Console.ResetColor();
     }
 
     else if (idade2 < 5840)
     {
         Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("");
         Console.WriteLine("Você possui menos de 16 anos, chame um responsável para se cadastrar no aplicativo");
         Thread.Sleep(2000);
         Console.Beep(2000, 600);
@@ -177,6 +178,8 @@ RETORNO3:
         }
 
     RETORNO5:
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("Insira seu nome de usuário");
         string usernameCliente = Console.ReadLine();
 
@@ -336,7 +339,7 @@ objcon.Close();
 
 while (true)
 {
-    RETORNOmenu:
+RETORNOmenu:
 
     Console.WriteLine("");
     Console.WriteLine("");
@@ -443,8 +446,8 @@ while (true)
         //fazer
     }
 
-    if (opcaoSelecionada == "3") 
-    { 
+    if (opcaoSelecionada == "3")
+    {
         Console.WriteLine("");
         Console.WriteLine("");
         Console.WriteLine("");
@@ -453,7 +456,7 @@ while (true)
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Precisa de uma ajuda com o veículo?  Conte-nos o que aconteceu:");
-        
+
         Console.WriteLine("");
         Console.WriteLine("");
         Console.WriteLine("");
@@ -465,7 +468,82 @@ while (true)
 
     if (opcaoSelecionada == "4") { }
 
-    if (opcaoSelecionada == "5") { }
+    if (opcaoSelecionada == "5")
+    {
+    RETORNOveiculo:
+        Console.ResetColor();
+        Console.WriteLine("");
+        Console.WriteLine("");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("(1) - Cadastrar novo veículo");
+        Console.WriteLine("");
+        Console.WriteLine("(2) - Exibir meus veículos");
+        Console.WriteLine("");
+        Console.WriteLine("(0) - Voltar ao menu");
+
+        string opcaoVeiculo = Console.ReadLine();
+
+        if (opcaoVeiculo != "1" || opcaoVeiculo != "2" || opcaoVeiculo != "0")
+        {
+            Console.ResetColor();
+            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Selecione uma opção da lista");
+            Console.WriteLine("");
+            goto RETORNOveiculo;
+        }
+
+        if (opcaoVeiculo == "1") //cadastrar veiculo
+        {
+            MySqlConnection cadastroVeiculo = new MySqlConnection("server=localhost;port=3306;user=root; database=mydb; password=;");
+            cadastroVeiculo.Open();
+
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+            Console.WriteLine("Por favor, insira seu nome de usuário"); //validar no banco se o nome está correto, depois puxar o ID do cliente pra inserir o carro
+            string username1 = Console.ReadLine();
+
+
+
+            Console.WriteLine("");
+            Console.WriteLine("Insira o modelo do seu veículo");
+            string modeloCarro = Console.ReadLine();
+
+            Console.WriteLine("");
+            Console.WriteLine("Insira a placa do seu veículo  || EXEMPLO > ' BRA2E19 '");
+            string placaCliente = Console.ReadLine();
+
+
+            MySqlCommand cadVeiculo = new MySqlCommand("insert into carro_cliente (CARRO_MODELO, CARRO_PLACA, CLIENTE_ID)) values (?, ?, ?)", objcon);
+
+            //parametros
+            cadVeiculo.Parameters.Add("@CARRO_MODELO", MySqlDbType.VarChar, 100).Value = modeloCarro;
+            cadVeiculo.Parameters.Add("@CARRO_PLACA", MySqlDbType.VarChar, 85).Value = placaCliente;
+            
+            cadVeiculo.Parameters.Add("@CLIENTE_ID", MySqlDbType.Int16).Value = ;
+
+
+
+        }
+
+        if (opcaoVeiculo == "2")
+        {
+
+        }
+
+        if (opcaoVeiculo == "0")
+        {
+            goto RETORNOmenu;
+        }
+
+
+
+    }
 
     if (opcaoSelecionada == "6") { }
 
