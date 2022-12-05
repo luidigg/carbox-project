@@ -4,7 +4,7 @@ using DocumentValidator;
 using MySql.Data.MySqlClient;
 
 
-MySqlConnection objcon = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
+MySqlConnection objcon = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
 
 objcon.Open();
 
@@ -37,7 +37,7 @@ if (opcaoLogin != "a" && opcaoLogin != "b" && opcaoLogin != "x")
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("Nenhuma opção foi selecionada, digite 'a' ou 'b' e tecle Enter");
-    Thread.Sleep(3500);
+    await Task.Delay(2000);
     Console.Beep(600, 700);
     goto RETORNO1;
 }
@@ -52,7 +52,7 @@ if (opcaoLogin == "")
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("Nenhuma opção foi selecionada, digite 'a' ou 'b' e tecle Enter");
-    Thread.Sleep(3500);
+    await Task.Delay(3500);
     Console.Beep(600, 700);
     goto RETORNO1;
 }
@@ -71,12 +71,13 @@ RETORNO2:
     {
         Console.ForegroundColor = ConsoleColor.DarkRed;
         Console.WriteLine("O nome inserido está incompleto ou é muito curto, tente novamente.");
-        Thread.Sleep(3500);
+        await Task.Delay(3500);
         goto RETORNO2;
     }
 
 RETORNO3:
     Console.ResetColor();
+    Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine("");
     Console.WriteLine("Insira seu número de telefone");
     string telefoneCliente = Console.ReadLine();
@@ -85,7 +86,7 @@ RETORNO3:
     {
         Console.ForegroundColor = ConsoleColor.DarkRed;
         Console.WriteLine("Digite um número de telefone válido");
-        Thread.Sleep(3500);
+        await Task.Delay(3500);
         goto RETORNO3;
     }
 
@@ -113,7 +114,7 @@ RETORNO3:
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("");
         Console.WriteLine("Você possui menos de 16 anos, chame um responsável para se cadastrar no aplicativo");
-        Thread.Sleep(2000);
+        await Task.Delay(2000);
         Console.Beep(2000, 600);
         Console.Beep(2000, 600);
         Console.ResetColor();
@@ -165,6 +166,7 @@ RETORNO3:
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("Insira seu nome de usuário");
         string usernameCliente = Console.ReadLine();
+        Console.WriteLine("");
 
         if (usernameCliente.Length > 15)
         {
@@ -191,6 +193,8 @@ RETORNO3:
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("As senhas devem ser iguais.");
             Console.WriteLine("");
+            await Task.Delay(1200);
+            Console.Clear();
             goto RETORNO6;
         }
 
@@ -199,8 +203,6 @@ RETORNO3:
         RETORNOcreate:
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("");
-            Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("[0]  -  Cancelar");
@@ -220,7 +222,7 @@ RETORNO3:
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Cancelando criação de conta...");
-                Thread.Sleep(1500);
+                await Task.Delay(1500);
                 Console.Beep(1500, 500);
                 Console.Beep(1500, 500);
 
@@ -247,6 +249,7 @@ RETORNO3:
                 Console.WriteLine("");
                 Console.WriteLine("Conta cadastrada com sucesso!");
                 Console.Beep(1800, 400);
+                await Task.Delay(1500);
                 break;
 
             }
@@ -267,6 +270,7 @@ RETORNO3:
 
 if (opcaoLogin == "b") //ATUALIZADO: FUNCIONANDO
 {
+
 RETORNOlog:
     Console.ResetColor();
     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -306,9 +310,6 @@ RETORNOlog:
         reader.Close();
         goto RETORNOlog;
     }
-
-
-
 
 }
 
@@ -367,7 +368,7 @@ RETORNOmenu:
 
     if (opcaoSelecionada == "1")
     {
-        MySqlConnection oficinaList = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
+        MySqlConnection oficinaList = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
         oficinaList.Open();
 
         MySqlCommand option1 = new MySqlCommand("select OFICINA_NOME, OFICINA_NUMERO, OFICINA_LOCALIZACAO from oficinas;", oficinaList);
@@ -417,24 +418,24 @@ RETORNOmenu:
         Console.ResetColor();
         Console.Write(Environment.NewLine);
         Console.Write(Environment.NewLine);
-        Console.WriteLine("Pressione qualquer tecla para continuar");
+        Console.WriteLine("Pressione enter para continuar");
         Console.ReadLine();
 
 
     }
 
     //falta acabar a parte de seleção de oficina > no caso colocar uma opção de selecionar oficina e
-    // dai redirecionar para os agendamentos atraves de um goto;
+    // dai redirecionar para os agendamentos;
 
 
     if (opcaoSelecionada == "2")
     {
-        //fazer
+        //precisamos acabar o APP Oficinas para elaborar essa parte.
     }
 
     if (opcaoSelecionada == "3")
     {
-        Console.WriteLine("");
+        Console.Clear();
         Console.WriteLine("");
         Console.WriteLine("");
         Console.WriteLine("");
@@ -447,16 +448,160 @@ RETORNOmenu:
         Console.WriteLine("");
         Console.WriteLine("");
         Console.ResetColor();
-        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        Console.ForegroundColor = ConsoleColor.Green;
 
-        Console.WriteLine("1  >  O carro não dá partida");
+        Console.WriteLine("(a)  >  O carro não dá partida");
+        Console.WriteLine("(b)  >  Direção puxando para um dos lados");
+        Console.WriteLine("(c)  >  Muita fumaça saindo da descarga");
+        Console.WriteLine("");
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        Console.WriteLine("(x)  -  Voltar ao menu");
+        Console.WriteLine("");
+
+        string ajuda = Console.ReadLine();
+
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+
+        if (ajuda == "a")
+        {
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Há várias causas para este problema, como por exemplo: bateria descarregada, problema no motor de partida ou falha na bomba de combustível.");
+            Console.WriteLine("Recomendamos que chame um mecânico ou leve o carro até a oficina mais próxima.");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Pressione enter para voltar ao menu");
+            Console.ReadLine();
+            Console.Write("");
+            goto RETORNOmenu;
+
+        }
+
+        if (ajuda == "b")
+        {
+            Console.Clear();
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Possível desalinhamento dos pneus  |  Neste caso, recomendamos a análise do veículo \npor um mecânico qualificado, sugerimos que agende um reparo em uma de nossas oficinas cadastradas.");
+            Console.WriteLine("");
+            Console.WriteLine(" O alinhamento dos pneus permite que o conjunto de rodas e pneus trabalhe da maneira mais eficiente. \n Um sinal de que os ajustes estão incorretos é a direção puxando para um dos lados com o carro em linha reta. \n Isso acontece pelo desgaste dos componentes da suspensão e direção e também por conta do impacto das rodas com buracos ou o meio-fio.");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Pressione enter para voltar ao menu");
+            Console.ReadLine();
+            goto RETORNOmenu;
+        }
+
+        if (ajuda == "c")
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Qual a cor da fumaça?   |   OBS: digite em letras minúsculas");
+            Console.WriteLine("");
+            string corFu = Console.ReadLine();
+
+            if (corFu == "branca" || corFu == "branco")
+            {
+                Console.WriteLine("");
+                Console.WriteLine("O motor já está aquecido?  | Insira [sim/não]");
+
+                string temp = Console.ReadLine();
+
+                if (temp == "nao" || temp == "não")
+                {
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Se a temperatura do motor ainda está baixa, não se preocupe, essa fumaça se deve muito provavelmente \na formação de vapores devido ao ar condensado");
+                    Console.WriteLine("");
+                }
+
+                else if (temp == "sim")
+                {
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Possível vazamento de líquido do radiador ou queima do fluído de freio | Recomendamos que leve o veículo até a oficina mais próxima para a análise de um mecânico.");
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine("Pressione enter para voltar ao menu");
+                    Console.ReadLine();
+                    goto RETORNOmenu;
+                }
+
+                else
+                {
+                    Console.ResetColor();
+                    goto RETORNOmenu;
+                }
+
+
+            }
+
+            if (corFu == "preta" || corFu == "preto")
+            {
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Mau funcionamento do motor  |  A fumaça preta, com um cheiro bem forte, é o maior indicativo de que o motor do seu veículo está consumindo mais combustível do que deveria. \n O problema é gerado pelo mau funcionamento do motor, que não gera oxigênio suficiente para queimar o combustível. \n Para resolver, o ideal é investigar uma possível desregulação do carburador, da injeção eletrônica ou um bloqueio no filtro de ar. \n Se a fumaça for visível apenas na primeira partida do veículo, o problema pode estar no afogador ou sistema de admissão.");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Pressione enter para voltar ao menu");
+                Console.ReadLine();
+                goto RETORNOmenu;
+
+            }
+
+            if (corFu == "azul" || corFu == "azulada")
+            {
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Possível queima de óleo  |  Quando a fumaça do escapamento fica azulada, é preciso atenção redobrada e manutenção rápida. \n Isto por que, a causa pode estar na queima rápida do óleo lubrificante, gerando baixo nível de lubrificação podendo fundir o motor. \n A fumaça azul pode aparecer devido ao excesso ou vazamento de óleo na câmara de combustão.");
+                Console.WriteLine("");
+                Console.WriteLine("O principal indício para confirmar o escape de fumaça azulada é o aumento do consumo de óleo.");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Pressione enter para voltar ao menu");
+                Console.ReadLine();
+                goto RETORNOmenu;
+            }
+
+            if (corFu != "branca" || corFu != "branco" || corFu != "preto" || corFu != "preta" || corFu != "azul" || corFu != "azulada")
+            {
+                Console.WriteLine("");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("Essa cor não está prevista em nosso sistema, recomendamos que verifique com um mecânico");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Pressione enter para voltar ao menu");
+                Console.ReadLine();
+                goto RETORNOmenu;
+            }
+        }
     }
 
     if (opcaoSelecionada == "4")
     {
-
-
-
+        //fazer
     }
 
 
@@ -493,14 +638,13 @@ RETORNOmenu:
         if (opcaoVeiculo == "1") //cadastrar veiculo
         {
         RETORNOcadveiculo:
-            MySqlConnection verificaCliente = new MySqlConnection("server=192.168.0.125; port=3306; user=PC2; database=mydb; password=darla;");
+            MySqlConnection verificaCliente = new MySqlConnection("server=192.168.0.125; port=3306; user=PC2; database=mydb; password=carbox321;");
             verificaCliente.Open();
 
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("");
             Console.WriteLine("");
-
 
 
             Console.WriteLine("Por favor, insira sua senha novamente"); //validar no banco se a senha está correta, depois puxar o ID do cliente pra inserir o carro
@@ -512,7 +656,9 @@ RETORNOmenu:
             MySqlDataReader verificaID;
             verificaID = verify.ExecuteReader();
             verificaID.Read();
+
             string verificaID2 = verificaID.GetString(0);
+            Int32 verificaID3 = Convert.ToInt32(verificaID2);
 
             if (verificaID.HasRows)
             {
@@ -526,17 +672,14 @@ RETORNOmenu:
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("");
                 Console.WriteLine("Usuário não encontrado. Verifique sua senha e tente novamente.");
-                Thread.Sleep(800);
+                await Task.Delay(800);
                 Console.Beep(900, 600);
                 Console.ResetColor();
                 goto RETORNOcadveiculo;
             }
 
-
-            MySqlConnection cadastroVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
+            MySqlConnection cadastroVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
             cadastroVeiculo.Open();
-
-            Int32 verificaID3 = Convert.ToInt32(verificaID2);
 
             Console.WriteLine("");
             Console.WriteLine("Insira o modelo do seu veículo");
@@ -577,7 +720,7 @@ RETORNOmenu:
             if (AddVeiculo == "a")
             {
 
-                MySqlCommand cadVeiculo = new MySqlCommand("insert into carro_cliente (CARRO_MODELO, CARRO_PLACA, CLIENTE_ID)) values (?, ?, ?)", cadastroVeiculo);
+                MySqlCommand cadVeiculo = new MySqlCommand("insert into carro_cliente (CARRO_MODELO, CARRO_PLACA, CLIENTE_ID) values (?, ?, ?)", cadastroVeiculo);
 
                 //parametros
                 cadVeiculo.Parameters.Add("@CARRO_MODELO", MySqlDbType.VarChar, 100).Value = modeloCarro;
@@ -595,7 +738,7 @@ RETORNOmenu:
 
                 cadastroVeiculo.Close();
 
-                Thread.Sleep(1300);
+                await Task.Delay(1300);
                 goto RETORNOveiculo;
             }
 
@@ -604,7 +747,7 @@ RETORNOmenu:
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Cancelando cadastro do veículo...");
-                Thread.Sleep(1200);
+                await Task.Delay(1200);
                 Console.Beep(1500, 500);
                 Console.Beep(1500, 500);
 
@@ -619,7 +762,7 @@ RETORNOmenu:
 
         if (opcaoVeiculo == "2") //exibir veiculos cadastrados
         {
-            MySqlConnection exibirVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
+            MySqlConnection exibirVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
             exibirVeiculo.Open();
 
             Console.ResetColor();
@@ -636,7 +779,6 @@ RETORNOmenu:
             MySqlDataReader readID;
             readID = verify.ExecuteReader();
             readID.Read();
-            string readIDS = readID.GetString(0);
 
             if (readID.HasRows)
             {
@@ -649,15 +791,17 @@ RETORNOmenu:
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("");
                 Console.WriteLine("Usuário não encontrado. Verifique sua senha e tente novamente.");
-                Thread.Sleep(800);
                 Console.Beep(900, 600);
+                await Task.Delay(1000);
                 Console.ResetColor();
                 goto RETORNOveiculo;
             }
 
+            string readIDS = readID.GetString(0);
+
             exibirVeiculo.Close();
 
-            MySqlConnection mostraVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=darla;");
+            MySqlConnection mostraVeiculo = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
             mostraVeiculo.Open();
 
             MySqlCommand showVeiculo = new MySqlCommand("select CARRO_MODELO, CARRO_PLACA from carro_cliente where CLIENTE_ID = '" + readIDS + "';", mostraVeiculo);
@@ -695,6 +839,9 @@ RETORNOmenu:
 
             Console.ResetColor();
             Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
             Console.WriteLine("Pressione enter para continuar...");
             Console.ReadLine();
             Console.WriteLine("");
@@ -713,7 +860,13 @@ RETORNOmenu:
     }
 
 
-    if (opcaoSelecionada == "6") { }
+    if (opcaoSelecionada == "111")
+    {
+        MySqlConnection perfil = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
+        perfil.Open();
+
+
+    }
 
 
     if (opcaoSelecionada == "0")
