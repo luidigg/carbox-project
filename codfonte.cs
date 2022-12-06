@@ -851,7 +851,6 @@ RETORNOmenu:
 
         }
 
-
         if (opcaoVeiculo == "0")
         {
             goto RETORNOmenu;
@@ -860,10 +859,106 @@ RETORNOmenu:
     }
 
 
-    if (opcaoSelecionada == "111")
+    //
+    //implementações abaixo
+    //
+
+
+
+    if (opcaoSelecionada == "4")
     {
-        MySqlConnection perfil = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
-        perfil.Open();
+        MySqlConnection exibir = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
+        exibir.Open();
+
+
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("");
+        Console.WriteLine("");
+
+        Console.WriteLine("Por favor, insira sua senha"); //buscar usuário no banco
+        string userPass = Console.ReadLine();
+
+        MySqlCommand verify = new MySqlCommand("select CLIENTE_ID from clientes where USERSENHA_CLIENTE = '" + userPass + "';", exibir);
+        verify.ExecuteNonQuery();
+
+        MySqlDataReader rdPerfil;
+        rdPerfil = verify.ExecuteReader();
+        rdPerfil.Read();
+
+        if (rdPerfil.HasRows)
+        {
+            //continua
+        }
+
+        else
+        {
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("");
+            Console.WriteLine("Usuário não encontrado. Verifique sua senha e tente novamente.");
+            Console.Beep(900, 600);
+            await Task.Delay(1000);
+            Console.ResetColor();
+            goto RETORNOmenu;
+        }
+
+        string profile = rdPerfil.GetString(0);
+
+        exibir.Close();
+
+        MySqlConnection mostraDados = new MySqlConnection("server=192.168.0.125;port=3306;user=PC2; database=mydb; password=carbox321;");
+        mostraDados.Open();
+
+        MySqlCommand showDados = new MySqlCommand("select CLIENTE_NOME, CLIENTE_NUMERO, DATA_NASCIMENTO, CPF_CLIENTE from clientes where CLIENTE_ID = '" + profile + "';", mostraDados);
+        showDados.ExecuteNonQuery();
+
+        MySqlDataReader readDados;
+        readDados = showDados.ExecuteReader();
+
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("");
+        Console.WriteLine("");
+
+        //cabeçalho da tabela
+        Console.Write("       NOME COMPLETO".PadRight(44));
+        Console.Write("TELEFONE".PadRight(44));
+        Console.Write("DATA DE NASCIMENTO".PadRight(44));
+        Console.Write("CPF");
+
+        while (readDados.Read())
+        {
+
+            string READv1 = readDados.GetString(0);
+            string READv2 = readDados.GetString(1);
+            string READv3 = readDados.GetString(2);
+            string READv4 = readDados.GetString(3);
+
+            Console.WriteLine("");
+
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            Console.Write(">    ");
+            Console.Write(READv1.PadRight(40, '.'));
+            Console.Write(READv2.PadRight(40, '.'));
+            Console.Write(READv3.PadRight(40, '.'));
+            Console.Write(READv4);
+            
+            Console.Write(Environment.NewLine);
+        }
+
+        Console.ResetColor();
+        Console.WriteLine("");
+        Console.WriteLine("");
+        Console.WriteLine("");
+        Console.WriteLine("");
+        Console.WriteLine("Pressione enter para continuar...");
+        Console.ReadLine();
+        Console.WriteLine("");
+
+        mostraDados.Close();
 
 
     }
